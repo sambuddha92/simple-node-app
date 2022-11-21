@@ -4,7 +4,8 @@
   "description": "This is a step-by-step guide to build a simple nodejs app and connect to a remote github repository. I am using macOS so windows or linux users may have to adapt where necessary.",
   "main": "index.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "node index.js"
   },
   "keywords": [],
   "author": "",
