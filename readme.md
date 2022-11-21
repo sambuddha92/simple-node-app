@@ -88,15 +88,60 @@ This file tells git to ignore the changes made to the files and folders mentione
 Next,
 
 1. On the command line enter `git init`
-2. Check the status of changes by running the command `git status`. It shows you the changes made on the directory so far.
-3. Run the command `git add .` to stage all changes to commit.
-4. Run the command `git commit -m "Initial Commit`. This commits all staged changes with the message "Initial Commit".
+2. Check the status of changes by running the command `git status`. It shows you the changes made on the directory so far
+3. Run the command `git add .` to stage all changes to commit
+4. Run the command `git commit -m "Initial Commit"`. This commits all staged changes with the message "Initial Commit"
 
 ## Connect with github remote repository
 
+### Setup SSH Connection to gihub
+
+1. Check if you already have an SSH Key, run the command `ls -al ~/.ssh`
+2. Check the directory listing to see if you already have a public SSH key. By default, the filenames of supported public keys for GitHub are one of the following. id_rsa.pub / id_ecdsa.pub / id_ed25519.pub
+3. First, check to see if your ~/.ssh/config file exists in the default location, run the command `open ~/.ssh/config`
+4. If the file does not exit, create one by running `touch ~/.ssh/config`
+5. Open the ssh config file by running `open ~/.ssh/config`
+6. Paste the following in the file:
+
+```
+Host *.github.com
+  AddKeysToAgent yes
+  UseKeychain yes
+  IdentityFile ~/.ssh/id_ed25519
+```
+
+Now, lets create the keypair:
+
+1. run the following command `ssh-keygen -t ed25519` and press enter to select the default location.
+2. Next the prompt will ask you to enter a passphrase. Enter a passphrase, you need to remember this for future connections.
+3. Enter the same passphrase again to confirm
+4. Add your SSH private key to the ssh-agent and store your passphrase in the keychain. Run `ssh-add --apple-use-keychain ~/.ssh/id_ed25519`
+
+Next, we need to add the public key to gihub
+
+1. Runn the following command to copy the contents of the public key `pbcopy < ~/.ssh/id_ed25519.pub`
+2. Go to github > Settings > SSH and GPG Keys ([URL](https://github.com/settings/keys))
+3. Click New SSH Key, select a title of your choice, select key type "Authentication Key" and add the contents of the public key in the text box then press Add SSH Key.
+
+Now we are ready to connect to github using SSH.
+
 ### Create empty gihub repository
 
-1. Go to github.com and login to your account.
-2. Click on create new reporitory.
-3. Name the reporitory `simple-node-app` or anything of your choice.
-4. Select private
+1. Go to github.com and login to your account
+2. Click on create new reporitory
+3. Name the reporitory "simple-node-app" or anything of your choice
+4. Select Private
+5. Keep "Add a README file" option unchecked
+6. Select .gitignore template none
+7. Select License None
+8. Click Create Reporitory
+9. Now you should see an ssh endpoint on the top which is something like `git@github.com:yourusername/simple-node-app.git`, copy this endpoint.
+10. Run the following commands one after the other but replace the endpoint in the first command with the actual one that you just copied
+
+```command line
+git remote add origin git@github.com:yourusername/simple-node-app.git
+git branc -m main
+git push -u origin main
+```
+
+That's it. Now the repository should be available on github.
