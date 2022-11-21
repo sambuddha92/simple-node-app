@@ -90,6 +90,7 @@ Next,
 1. On the command line enter `git init`
 2. Check the status of changes by running the command `git status`. It shows you the changes made on the directory so far.
 3. Run the command `git add .` to stage all changes to commit.
+4. Run the command `git commit -m "Initial Commit`. This commits all staged changes with the message "Initial Commit".
 
 ## Connect with github remote repository
 
